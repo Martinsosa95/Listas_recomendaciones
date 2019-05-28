@@ -29,8 +29,8 @@ int Pelicula::obtener_puntaje(){
 	return *puntaje;
 }
 
-string Pelicula::obtener_actor(int pos){
-
+Lista<string>* Pelicula::obtener_actores(){  
+	return actores;
 }
 
 void Pelicula::asignar_nombre_pelicula(string* nuevo_nombre_pelicula){
@@ -52,6 +52,21 @@ void Pelicula::asignar_puntaje(int* nuevo_puntaje){
 void Pelicula::asignar_actor(int pos){
 
 }
+
+void Pelicula::imprimir_informacion(){
+	cout<<"Nombre :"<< nombre_pelicula<<endl;
+	cout<<"Genero :"<< genero <<endl;
+	cout<<"Puntaje :"<<puntaje<<endl;
+	cout<<"Director :"<<director<<endl;
+	cout<<"Actores:";
+
+	for(int i = 1;i <= actores->obtener_tamanio();i++){
+		cout<< actores->consultar(i)<<" ";
+	}
+
+	cout<<endl;
+}
+
 Pelicula::~Pelicula(){
 
 }
