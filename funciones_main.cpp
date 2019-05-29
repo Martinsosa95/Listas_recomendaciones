@@ -14,46 +14,50 @@ void menu(){
         cout<<"---------------------------------------------------------------------------------------------------------------------------"<< endl;
 }
 
-void cargar_actores(string lectura, Lista<string>* lista){
+void cargar_actores(string lectura, Lista<Actor>* lista){
     int pos_lista = 1;
     int i =0;
     int ant = 0;
-    string* actor= new string;
+    string actor;
     while( (char)lectura[i] != 0){
         if(lectura[i]==' '){
-            *actor = lectura.substr(ant,i-ant);
-            lista-> agregar(actor, pos_lista);
+            actor = lectura.substr(ant,i-ant);
+            Actor* Aactor = new Actor(actor);
+            lista-> agregar(Aactor, pos_lista);
             ant = i + 1;
             pos_lista++;
         }
         i++;
     }
-    *actor = lectura.substr(ant,i-ant);
-    lista-> agregar(actor, pos_lista);
+    actor = lectura.substr(ant,i-ant);
+    Actor* Aactor = new Actor(actor);
+    lista-> agregar(Aactor, pos_lista);
+
 }
 
 void cargar_lista(ifstream &archivo,Lista<Pelicula>* lista){
     int pos_lista = 1;
-    string* nombre= new string;
-    string* genero= new string;
-    int* nota= new int;
-    string* nota_s = new string;
-    string* director= new string;
-    string* actores= new string;
-    getline(archivo, *nombre);
-    while (!archivo.eof()){ 
-        getline(archivo, *genero);
-        getline(archivo, *nota_s);
-        *nota = atoi(nota_s->c_str());
-        getline(archivo, *director);
-        getline(archivo, *actores);
-        Lista<string>* lista_actores = new Lista<string>;
-        cargar_actores(*actores, lista_actores);
+    string aux;
+    string nombre;
+    string genero;
+    int nota;
+    string nota_s;
+    string director;
+    string actores;
+    while (true){ 
+        if(archivo.eof()) break;
+        getline(archivo, nombre);
+        getline(archivo, genero);
+        getline(archivo, nota_s);
+        nota = atoi(nota_s.c_str());
+        getline(archivo, director);
+        getline(archivo, actores);
+        Lista<Actor>* lista_actores = new Lista<Actor>;
+        cargar_actores(actores, lista_actores);
         Pelicula* Nueva_pelicula = new Pelicula(nombre, genero, director, nota, lista_actores);
         lista -> agregar(Nueva_pelicula, pos_lista);
-        //delete lista_actores;
+        getline(archivo, aux);
         pos_lista++;
-        getline(archivo, *nombre);
     }  
     //delete nombre;
     //delete genero;
@@ -105,9 +109,9 @@ bool operaciones(char comando,Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas
     switch(comando){
 
         case'a':
-            cout << vistas -> obtener_tamanio();
             for(int i = 1;i <= vistas->obtener_tamanio();i++){
-                vistas->consultar(i)->imprimir_informacion();
+                Pelicula* aux = vistas->consultar(i);
+                aux->imprimir_informacion();
             }
             break;
 

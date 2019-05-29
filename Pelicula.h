@@ -1,6 +1,7 @@
 #ifndef PELICULA_H
 #define PELICULA_H
 #include "Lista.h"
+#include "Actor.h"
 #include <iostream>
 using namespace std;
 
@@ -10,12 +11,12 @@ private:
 	string* genero;
 	int* puntaje;
 	string* director;
-	Lista<string>* actores;
+	Lista<Actor>* actores;
 
 public:
 	Pelicula();
 
-	Pelicula(string* nuevo_nombre_pelicula, string* nuevo_genero, string* nuevo_director, int* nuevo_puntaje, Lista<string>* nuevos_actores);
+	Pelicula(string nuevo_nombre_pelicula, string nuevo_genero, string nuevo_director, int nuevo_puntaje, Lista<Actor>* nuevos_actores);
 
 	string obtener_nombre_pelicula();
 
@@ -25,7 +26,7 @@ public:
 
 	int obtener_puntaje();
 
-	Lista<string>* obtener_actores();
+	Lista<Actor>* obtener_actores();
 
 	void asignar_nombre_pelicula(string* nuevo_nombre_pelicula);
 

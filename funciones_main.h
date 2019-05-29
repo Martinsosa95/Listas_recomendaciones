@@ -6,6 +6,7 @@
 #include <string>
 #include "Lista.h"
 #include "Pelicula.h"
+#include "Actor.h"
 
 void cargar_actores(string lectura, Lista<string>* lista);
 
