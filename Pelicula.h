@@ -25,7 +25,7 @@ public:
 
 	int obtener_puntaje();
 
-	string obtener_actor(int pos);
+	Lista<string>* obtener_actores();
 
 	void asignar_nombre_pelicula(string* nuevo_nombre_pelicula);
 
@@ -36,6 +36,8 @@ public:
 	void asignar_puntaje(int* nuevo_puntaje);
 
 	void asignar_actor(int pos);
+
+	void imprimir_informacion();
 
 	~Pelicula();
 };

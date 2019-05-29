@@ -4,6 +4,7 @@ using namespace std;
 int main(){
 	Lista<Pelicula>* no_vistas = new Lista<Pelicula>;
 	Lista<Pelicula>* vistas = new Lista<Pelicula>;
+    
     ifstream arch_vistas;
     ifstream arch_no_vistas ;
 
@@ -22,7 +23,25 @@ int main(){
     cargar_lista(arch_vistas, vistas);
     cargar_lista(arch_no_vistas, no_vistas);
 
+    char comando;
+    bool continuar_operando = true;
+    while(continuar_operando){ 
+        menu();
 
+        cout<<"Ingrese un comando"<< endl;
+        cin>> comando;
+
+        while(comando != 'a' && comando != 'b' && comando != 'c' && comando != 'd'){
+
+            cout<<"Comando invalido"<<endl;
+            cout<<"Ingrese un comando"<< endl;
+            cin>> comando;
+            system("clear");
+
+        }
+
+        continuar_operando = operaciones(comando,vistas,no_vistas);        
+    }
 
 	return 0;
 }
