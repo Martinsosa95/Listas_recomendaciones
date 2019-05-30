@@ -1,0 +1,23 @@
+IT
+Terror
+8
+Ricardo
+Ruben
+
+Que paso ayer?
+Comedia
+4
+tito
+Adam_Sandler
+
+Toy story
+Animacion
+10
+Dennis Dugan
+Adam_Sandler
+
+ANT
+Drama
+3
+Arantxa Echevarria
+El_Morro
