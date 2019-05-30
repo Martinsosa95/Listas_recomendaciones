@@ -12,6 +12,7 @@ private:
 	int* puntaje;
 	string* director;
 	Lista<Actor>* actores;
+	void eliminar_actores();
 
 public:
 	Pelicula();

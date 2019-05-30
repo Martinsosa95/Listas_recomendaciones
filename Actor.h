@@ -14,6 +14,8 @@ class Actor{
 		string obtener_nombre();
 
 		void asignar_nombre(string* nuevo_nombre);
+
+		~Actor();
 	
 };
 

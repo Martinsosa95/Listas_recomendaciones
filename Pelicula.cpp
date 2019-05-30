@@ -9,7 +9,7 @@ Pelicula::Pelicula(string nuevo_nombre_pelicula, string nuevo_genero, string nue
 	genero = new string;
 	director = new string;
 	puntaje = new int;
-	//Lista<Actor>* actores = new Lista<Actor>;
+	cout << "Pido Memoria Pelicula" << endl;
 	*nombre_pelicula = nuevo_nombre_pelicula;
 	*genero = nuevo_genero;
 	*director = nuevo_director;
@@ -57,6 +57,12 @@ void Pelicula::asignar_actor(int pos){
 
 }
 
+void Pelicula::eliminar_actores(){
+	for(int i=0;i<actores -> obtener_tamanio();i++)
+		while(!actores -> es_vacia())
+			actores -> eliminar(1);
+}
+
 void Pelicula::imprimir_informacion(){
 	cout<<"Nombre :"<< *nombre_pelicula<<endl;
 	cout<<"Genero :"<< *genero <<endl;
@@ -72,5 +78,12 @@ void Pelicula::imprimir_informacion(){
 }
 
 Pelicula::~Pelicula(){
-
+	delete nombre_pelicula;
+	delete genero;
+	delete director;
+	delete puntaje;
+	cout << "Borro Peliculas" << endl;
+	eliminar_actores();
+	delete actores;
+	cout << "Borro Lista de Actores" << endl;
 }

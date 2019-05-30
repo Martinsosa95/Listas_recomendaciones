@@ -43,5 +43,7 @@ int main(){
         continuar_operando = operaciones(comando,vistas,no_vistas);        
     }
 
+    delete vistas;
+    delete no_vistas;
 	return 0;
 }

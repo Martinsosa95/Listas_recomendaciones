@@ -20,7 +20,7 @@ void cargar_actores(string lectura, Lista<Actor>* lista){
     int ant = 0;
     string actor;
     while( (char)lectura[i] != 0){
-        if(lectura[i]==' '){
+        if(lectura[i]==' ' || (char)lectura[i] == 9){
             actor = lectura.substr(ant,i-ant);
             Actor* Aactor = new Actor(actor);
             lista-> agregar(Aactor, pos_lista);
@@ -37,13 +37,8 @@ void cargar_actores(string lectura, Lista<Actor>* lista){
 
 void cargar_lista(ifstream &archivo,Lista<Pelicula>* lista){
     int pos_lista = 1;
-    string aux;
-    string nombre;
-    string genero;
+    string aux,nombre,genero,nota_s,director,actores;
     int nota;
-    string nota_s;
-    string director;
-    string actores;
     while (true){ 
         if(archivo.eof()) break;
         getline(archivo, nombre);
@@ -59,13 +54,7 @@ void cargar_lista(ifstream &archivo,Lista<Pelicula>* lista){
         getline(archivo, aux);
         pos_lista++;
     }  
-    //delete nombre;
-    //delete genero;
-    //delete nota;
-    //delete director;
-    //delete actores;
 }
-
 bool coinciden_actores(Pelicula* pelicula1,Pelicula* pelicula2){
     for (int i = 1; i <= pelicula1->obtener_actores()->obtener_tamanio(); i++){
         for (int j = 1; i <= pelicula2->obtener_actores()->obtener_tamanio(); j++){
