@@ -14,27 +14,6 @@ void menu(){
         cout<<"---------------------------------------------------------------------------------------------------------------------------"<< endl;
 }
 
-void cargar_actores(string lectura, Lista<Actor>* lista){
-    int pos_lista = 1;
-    int i =0;
-    int ant = 0;
-    string actor;
-    while( (char)lectura[i] != 0){
-        if(lectura[i]==' ' || (char)lectura[i] == 9){
-            actor = lectura.substr(ant,i-ant);
-            Actor* Aactor = new Actor(actor);
-            lista-> agregar(Aactor, pos_lista);
-            ant = i + 1;
-            pos_lista++;
-        }
-        i++;
-    }
-    actor = lectura.substr(ant,i-ant);
-    Actor* Aactor = new Actor(actor);
-    lista-> agregar(Aactor, pos_lista);
-
-}
-
 void cargar_lista(ifstream &archivo,Lista<Pelicula>* lista){
     int pos_lista = 1;
     string aux,nombre,genero,nota_s,director,actores;
@@ -47,14 +26,13 @@ void cargar_lista(ifstream &archivo,Lista<Pelicula>* lista){
         nota = atoi(nota_s.c_str());
         getline(archivo, director);
         getline(archivo, actores);
-        Lista<Actor>* lista_actores = new Lista<Actor>;
-        cargar_actores(actores, lista_actores);
-        Pelicula* Nueva_pelicula = new Pelicula(nombre, genero, director, nota, lista_actores);
+        Pelicula* Nueva_pelicula = new Pelicula(nombre, genero, director, nota, actores);
         lista -> agregar(Nueva_pelicula, pos_lista);
         getline(archivo, aux);
         pos_lista++;
     }  
 }
+
 bool coinciden_actores(Pelicula* pelicula1,Pelicula* pelicula2){
     for (int i = 1; i <= pelicula1->obtener_actores()->obtener_tamanio(); i++){
         for (int j = 1; i <= pelicula2->obtener_actores()->obtener_tamanio(); j++){
@@ -63,37 +41,31 @@ bool coinciden_actores(Pelicula* pelicula1,Pelicula* pelicula2){
             }
         }
     }
-   
     return false;
 }
 
 bool coinciden_directores(Pelicula* pelicula1,Pelicula* pelicula2){
-
-    if(pelicula1->obtener_director() == pelicula2->obtener_director()){
+    if(pelicula1->obtener_director() == pelicula2->obtener_director())
         return true;
-    }
-
     return false;
 }
 
-Lista<Pelicula>* crear_lista_recomendadas(Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas){
-
-    Lista<Pelicula>* recomendadas = new Lista<Pelicula>;
+void crear_lista_recomendadas(Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas,Lista<Pelicula>* recomendadas){
 
     for(int i = 1; i <= vistas->obtener_tamanio();i++){
         for(int j = 1 ; j <= no_vistas->obtener_tamanio();j++){
             if(vistas->consultar(i)->obtener_genero() == no_vistas->consultar(j)->obtener_genero() && (no_vistas->consultar(j)->obtener_puntaje() >= 7 || coinciden_directores(vistas->consultar(i),no_vistas->consultar(j)) || coinciden_actores(vistas->consultar(i),no_vistas->consultar(j)))){
                 if(!recomendadas->esta(no_vistas->consultar(j))){
-                    recomendadas->agregar(no_vistas->consultar(j),recomendadas->obtener_tamanio() + 1); //AGREGARLO AL FINAL//
+                	Pelicula* aux = no_vistas -> consultar(j);
+                	Pelicula* nueva = new Pelicula(aux->obtener_nombre_pelicula(),aux->obtener_genero(),aux->obtener_director(),aux->obtener_puntaje(),aux->obtener_string());
+                    recomendadas->agregar(nueva,recomendadas->obtener_tamanio() + 1); //AGREGARLO AL FINAL//
                 }
             }
         }
     }    
-
-    return recomendadas;
 }
 
-bool operaciones(char comando,Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas){
+bool operaciones(char comando,Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas,Lista<Pelicula>* recomendadas){
 
     switch(comando){
 
@@ -114,7 +86,6 @@ bool operaciones(char comando,Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas
 
         case'c':{
             cout<<"Peliculas recomendadas:"<<endl<<endl;
-            Lista<Pelicula>* recomendadas = crear_lista_recomendadas(vistas,no_vistas);
             if(recomendadas->es_vacia()){
                 cout<<"No hay peliculas que recomendar"<<endl;
             }
@@ -130,6 +101,5 @@ bool operaciones(char comando,Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas
             return false;
 
     }
-
     return true;
 }

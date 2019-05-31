@@ -8,7 +8,6 @@
 #include "Pelicula.h"
 #include "Actor.h"
 
-void cargar_actores(string lectura, Lista<string>* lista);
 
 void cargar_lista(ifstream &archivo,Lista<Pelicula>* lista);
 
@@ -16,10 +15,10 @@ bool coinciden_actores(Pelicula* pelicula1,Pelicula* pelicula2);
 
 bool coinciden_directores(Pelicula* pelicula1,Pelicula* pelicula2);
 
-Lista<Pelicula>* crear_lista_recomendadas(Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas);
+void crear_lista_recomendadas(Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas,Lista<Pelicula>* recomendadas);
 
 void menu();
 
-bool operaciones(char comando,Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas);
+bool operaciones(char comando,Lista<Pelicula>* vistas,Lista<Pelicula>* no_vistas,Lista<Pelicula>* recomendadas);
 
 #endif

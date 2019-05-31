@@ -4,7 +4,7 @@ using namespace std;
 int main(){
 	Lista<Pelicula>* no_vistas = new Lista<Pelicula>;
 	Lista<Pelicula>* vistas = new Lista<Pelicula>;
-    
+    Lista<Pelicula>* recomendadas = new Lista<Pelicula>;
     ifstream arch_vistas;
     ifstream arch_no_vistas ;
 
@@ -22,7 +22,7 @@ int main(){
     }
     cargar_lista(arch_vistas, vistas);
     cargar_lista(arch_no_vistas, no_vistas);
-
+    crear_lista_recomendadas(vistas,no_vistas,recomendadas);
     char comando;
     bool continuar_operando = true;
     while(continuar_operando){ 
@@ -40,10 +40,10 @@ int main(){
 
         }
 
-        continuar_operando = operaciones(comando,vistas,no_vistas);        
+        continuar_operando = operaciones(comando,vistas,no_vistas,recomendadas);        
     }
-
     delete vistas;
     delete no_vistas;
+    delete recomendadas;
 	return 0;
 }

@@ -12,18 +12,21 @@ private:
 	int* puntaje;
 	string* director;
 	Lista<Actor>* actores;
-	void eliminar_actores();
+	string* actores_s;
+	void cargar_actores(string lectura);
 
 public:
 	Pelicula();
 
-	Pelicula(string nuevo_nombre_pelicula, string nuevo_genero, string nuevo_director, int nuevo_puntaje, Lista<Actor>* nuevos_actores);
+	Pelicula(string nuevo_nombre_pelicula, string nuevo_genero, string nuevo_director, int nuevo_puntaje, string actores_s_nuevo);
 
 	string obtener_nombre_pelicula();
 
 	string obtener_genero();
 
 	string obtener_director();
+
+	string obtener_string(); // Esta me hace ruido, pero la nesecito en funciones_main linea 66
 
 	int obtener_puntaje();
 

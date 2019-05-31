@@ -184,7 +184,6 @@ bool Lista<Dato>::esta(Dato* dato_a_buscar){
 
 template <typename Dato>
 Lista<Dato>::~Lista(){
-	
 	while(!es_vacia())
 		eliminar(1);
 }
