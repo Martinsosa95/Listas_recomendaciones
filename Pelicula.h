@@ -13,6 +13,8 @@ private:
 	string* director;
 	Lista<Actor>* actores;
 	string* actores_s;
+	//Pre: Existe una lista de actores
+	//Post: Se agregó un nuevo actor a la lista
 	void cargar_actores(string lectura);
 
 public:
@@ -31,7 +33,7 @@ public:
 	string obtener_nombre_pelicula();
 
 	//Pre:El objeto debe existir
-	//Post:Devuelve el genero de la pelicula	
+	//Post:Devuelve el genero de la pelicula
 	string obtener_genero();
 
 	//Pre:El objeto debe existir
@@ -40,7 +42,7 @@ public:
 
 	//Pre:El objeto debe existir
 	//Post:Devuelve la linea del archivo de peliculas donde estan los actores
-	string obtener_string(); 
+	string obtener_string();
 
 	//Pre:El objeto debe existir
 	//Post:Devuelve el puntaje de la pelicula
