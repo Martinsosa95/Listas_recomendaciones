@@ -1,6 +1,7 @@
 #ifndef PELICULA_H
 #define PELICULA_H
 #include "Lista.h"
+#include "Actor.h"
 #include <iostream>
 using namespace std;
 
@@ -10,12 +11,14 @@ private:
 	string* genero;
 	int* puntaje;
 	string* director;
-	Lista<string>* actores;
+	Lista<Actor>* actores;
+	string* actores_s;
+	void cargar_actores(string lectura);
 
 public:
 	Pelicula();
 
-	Pelicula(string* nuevo_nombre_pelicula, string* nuevo_genero, string* nuevo_director, int* nuevo_puntaje, Lista<string>* nuevos_actores);
+	Pelicula(string nuevo_nombre_pelicula, string nuevo_genero, string nuevo_director, int nuevo_puntaje, string actores_s_nuevo);
 
 	string obtener_nombre_pelicula();
 
@@ -23,9 +26,11 @@ public:
 
 	string obtener_director();
 
+	string obtener_string(); // Esta me hace ruido, pero la nesecito en funciones_main linea 66
+
 	int obtener_puntaje();
 
-	string obtener_actor(int pos);
+	Lista<Actor>* obtener_actores();
 
 	void asignar_nombre_pelicula(string* nuevo_nombre_pelicula);
 
@@ -36,6 +41,8 @@ public:
 	void asignar_puntaje(int* nuevo_puntaje);
 
 	void asignar_actor(int pos);
+
+	void imprimir_informacion();
 
 	~Pelicula();
 };

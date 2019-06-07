@@ -54,6 +54,10 @@ public:
 	//Post:La lista se encuentra ordenada por numero de legajo de los trabajadores
 	void ordenar();
 	
+	//Pre:El objeto debe existir
+	//Post:Devuelve verdadero si el dato esta en la lista o falso en caso contrario
+	bool esta(Dato* dato_a_buscar);
+
 	//Descripcion:Destructor
 	//Pre:El objeto debe existir
 	//Post:EL objeto es destruido
@@ -167,9 +171,19 @@ void Lista<Dato>::swap(int pos1, int pos2){
 	cambiar_nodo(aux,pos2);
 	}
 }
+
+template <typename Dato>
+bool Lista<Dato>::esta(Dato* dato_a_buscar){
+	for(int i = 1;i <= tamanio;i++){
+		if(consultar(i) == dato_a_buscar){
+			return true;
+		}
+	}
+	return false;
+}
+
 template <typename Dato>
 Lista<Dato>::~Lista(){
-	
 	while(!es_vacia())
 		eliminar(1);
 }
