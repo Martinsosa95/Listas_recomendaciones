@@ -12,8 +12,6 @@ Pelicula::Pelicula(string nuevo_nombre_pelicula, string nuevo_genero, string nue
 	actores = new Lista<Actor>;
 	actores_s = new string;
 
-	cout << "Pido Memoria Pelicula" << endl;
-
 	*nombre_pelicula = nuevo_nombre_pelicula;
 	*genero = nuevo_genero;
 	*director = nuevo_director;
@@ -107,7 +105,5 @@ Pelicula::~Pelicula(){
 	delete director;
 	delete puntaje;
 	delete actores_s;
-	cout << "Borro Peliculas" << endl;
 	delete actores;
-	cout << "Borro Lista de Actores" << endl;
 }
