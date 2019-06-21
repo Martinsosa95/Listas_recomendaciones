@@ -1,19 +1,20 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-#include "Nodo.h"
+#include "Nodo_lista.h"
 template <typename Dato>
+
 class Lista{
 private:
-	Nodo<Dato>* primero;
+	Nodo_lista<Dato>* primero;
 	int tamanio;
 
 	//Pre:Debe existir un nodo en la posicion pasada por parametro
 	//Post:Cambia el nodo pasado por parametro por el nodo de la posicion pasada por parametro
-	void cambiar_nodo(Nodo<Dato>* nodo,int pos);
+	void cambiar_nodo(Nodo_lista<Dato>* nodo,int pos);
 	//Pre:Debe existir el nodo en esa posicion
 	//Post:Se va a retirar el nodo de esa posicion
-	Nodo<Dato>* retirar(int pos);
+	Nodo_lista<Dato>* retirar(int pos);
 public:
 	//Descripcion:Constructor
 	//Pre:---
@@ -44,7 +45,7 @@ public:
 	
 	//Pre:El objeto debe existir,pos debe ser mayor a cero y menor o igual a tamanio
 	//Post:devuelve el nodo enn la posicion pos de la lista
-	Nodo<Dato>* obtener_nodo(int pos);
+	Nodo_lista<Dato>* obtener_nodo(int pos);
 	
 	//Pre:El objeto debe existir,pos1 y pos 2 deben ser mayores a cero y menores o iguales a tamanio
 	//Post:intercambio los nodos en  pos1 y pos 2
@@ -54,6 +55,10 @@ public:
 	//Post:La lista se encuentra ordenada por numero de legajo de los trabajadores
 	void ordenar();
 	
+	//Pre:El objeto debe existir
+	//Post:Devuelve verdadero si el dato esta en la lista o falso en caso contrario
+	bool esta(Dato* dato_a_buscar);
+
 	//Descripcion:Destructor
 	//Pre:El objeto debe existir
 	//Post:EL objeto es destruido
@@ -78,8 +83,8 @@ bool Lista<Dato>::es_vacia(){
 }
 
 template <typename Dato>
-Nodo<Dato>* Lista<Dato>::obtener_nodo(int pos){
-	Nodo<Dato>* aux = primero;
+Nodo_lista<Dato>* Lista<Dato>::obtener_nodo(int pos){
+	Nodo_lista<Dato>* aux = primero;
 	for(int i = 1; i<pos ; i++)
 		aux = aux->obtener_siguiente();
 	return aux;
@@ -87,7 +92,7 @@ Nodo<Dato>* Lista<Dato>::obtener_nodo(int pos){
 
 template <typename Dato>
 void Lista<Dato>::agregar(Dato* d, int pos){
-	Nodo<Dato>* nuevo = new Nodo<Dato>(d);
+	Nodo_lista<Dato>* nuevo = new Nodo_lista<Dato>(d);
 	
 	if(es_vacia())
 		primero = nuevo;
@@ -96,7 +101,7 @@ void Lista<Dato>::agregar(Dato* d, int pos){
 		primero = nuevo;
 	}
 	else{
-		Nodo<Dato>* aux = obtener_nodo(pos-1);
+		Nodo_lista<Dato>* aux = obtener_nodo(pos-1);
 		nuevo->asignar_siguiente(aux->obtener_siguiente());
 		aux->asignar_siguiente(nuevo);
 	}
@@ -105,13 +110,13 @@ void Lista<Dato>::agregar(Dato* d, int pos){
 
 template <typename Dato>
 void Lista<Dato>::eliminar(int pos){
-	Nodo<Dato>* aux;
+	Nodo_lista<Dato>* aux;
 	if(pos == 1){
 		aux = primero;
 		primero = aux->obtener_siguiente();
 	}
 	else{
-		Nodo<Dato>* anterior = obtener_nodo(pos-1);
+		Nodo_lista<Dato>* anterior = obtener_nodo(pos-1);
 		aux = anterior->obtener_siguiente();
 		anterior->asignar_siguiente(aux->obtener_siguiente());
 	}
@@ -120,14 +125,14 @@ void Lista<Dato>::eliminar(int pos){
 }
 
 template <typename Dato>
-Nodo<Dato>* Lista<Dato>::retirar(int pos){
-	Nodo<Dato>* aux;
+Nodo_lista<Dato>* Lista<Dato>::retirar(int pos){
+	Nodo_lista<Dato>* aux;
 	if(pos == 1){
 		aux = primero;
 		primero = aux->obtener_siguiente();
 	}
 	else{
-		Nodo<Dato>* anterior = obtener_nodo(pos-1);
+		Nodo_lista<Dato>* anterior = obtener_nodo(pos-1);
 		aux = anterior->obtener_siguiente();
 		anterior->asignar_siguiente(aux->obtener_siguiente());
 	}
@@ -136,7 +141,7 @@ Nodo<Dato>* Lista<Dato>::retirar(int pos){
 }
 
 template <typename Dato>
-void Lista<Dato>::cambiar_nodo(Nodo<Dato>* nodo,int pos){
+void Lista<Dato>::cambiar_nodo(Nodo_lista<Dato>* nodo,int pos){
 	if(es_vacia())
 		primero = nodo;
 	else if(pos == 1){
@@ -144,7 +149,7 @@ void Lista<Dato>::cambiar_nodo(Nodo<Dato>* nodo,int pos){
 		primero = nodo;
 	}
 	else{
-		Nodo<Dato>* aux = obtener_nodo(pos-1);
+		Nodo_lista<Dato>* aux = obtener_nodo(pos-1);
 		nodo->asignar_siguiente(aux->obtener_siguiente());
 		aux->asignar_siguiente(nodo);
 	}
@@ -153,7 +158,7 @@ void Lista<Dato>::cambiar_nodo(Nodo<Dato>* nodo,int pos){
 
 template <typename Dato>
 Dato* Lista<Dato>::consultar(int pos){
-	Nodo<Dato>* aux = obtener_nodo(pos);
+	Nodo_lista<Dato>* aux = obtener_nodo(pos);
 	return aux->obtener_elemento();
 }
 
@@ -161,15 +166,25 @@ Dato* Lista<Dato>::consultar(int pos){
 template <typename Dato>
 void Lista<Dato>::swap(int pos1, int pos2){
 	if((pos1 < obtener_tamanio())&&(pos2 <= obtener_tamanio() )){
-	Nodo<Dato>* aux = retirar(pos1);
-	Nodo<Dato>* aux2 = retirar(pos2-1);
+	Nodo_lista<Dato>* aux = retirar(pos1);
+	Nodo_lista<Dato>* aux2 = retirar(pos2-1);
 	cambiar_nodo(aux2,pos1);
 	cambiar_nodo(aux,pos2);
 	}
 }
+
+template <typename Dato>
+bool Lista<Dato>::esta(Dato* dato_a_buscar){
+	for(int i = 1;i <= tamanio;i++){
+		if(consultar(i) == dato_a_buscar){
+			return true;
+		}
+	}
+	return false;
+}
+
 template <typename Dato>
 Lista<Dato>::~Lista(){
-	
 	while(!es_vacia())
 		eliminar(1);
 }
